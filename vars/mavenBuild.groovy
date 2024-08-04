@@ -1,11 +1,8 @@
 def call(Map args = [:]) {
     def goals = args.get('goals', 'clean package')
     def mavenOpts = args.get('mavenOpts', '')
-    def mavenHome = args.get('mavenHome', '/opt/maven/bin')
+    def mavenHome = args.get('mavenHome', '/opt/maven')
 
-    // Ensure Maven home is set correctly
-    withMaven(maven: mavenHome) {
-        // Run the Maven goals
-        sh "mvn ${mavenOpts} ${goals}"
-    }
+    // Run the Maven goals using a direct shell command
+    sh "${mavenHome}/bin/mvn ${mavenOpts} ${goals}"
 }
