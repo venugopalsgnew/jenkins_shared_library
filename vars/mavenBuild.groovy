@@ -1,4 +1,8 @@
-def call(String goals = 'clean package', String mavenOpts = '', String mavenHome = '/opt/maven') {
+def call(Map args = [:]) {
+    def goals = args.get('goals', 'clean package')
+    def mavenOpts = args.get('mavenOpts', '')
+    def mavenHome = args.get('mavenHome', '/opt/maven')
+
     // Ensure Maven home is set correctly
     withMaven(maven: mavenHome) {
         // Run the Maven goals
