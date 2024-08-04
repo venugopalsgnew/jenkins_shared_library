@@ -1,0 +1,25 @@
+@Library('shared-library') _
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    // Call the shared library function with branch and repoUrl parameters
+                    gitCheckout(branch: 'master', repoUrl: 'https://github.com/venugopalsgnew/Jenkins_training.git')
+                }
+            }
+        }
+
+       stage('Build') {
+            steps {
+               
+                mavenBuild(goals: 'clean package', mavenOpts: '-Dmaven.test.failure.ignore')
+            }
+        }
+
+        // Other stages here
+    }
+}
